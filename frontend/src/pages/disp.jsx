@@ -7,7 +7,7 @@ const Disp = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/disp/products")
+    fetch("https://memento-world-back.vercel.app/disp")
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
