@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate
+import axios from 'axios';
+
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -37,7 +39,7 @@ const AddProduct = () => {
     data.append('image', formData.image);
 
     try {
-      const res = await fetch("https://memento-world-back.vercel.app/api/add_products", {
+      const res = await axios.fetch("https://memento-world-back.vercel.app/api/add_products", {
         method: "POST",
         body: data,
       });
