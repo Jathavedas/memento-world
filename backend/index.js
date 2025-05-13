@@ -27,6 +27,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+app.get("/", (req, res) => {
+    res.send("ok");
+});
+
 // ✅ Add Product API (with image)
 app.post("/api/add_products", upload.single("image"), async (req, res) => {
   try {
