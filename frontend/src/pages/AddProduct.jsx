@@ -26,43 +26,41 @@ const AddProduct = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append('name', formData.name);
-    data.append('price', formData.price);
-    data.append('stock', formData.stock);
-    data.append('length', formData.length);
-    data.append('breadth', formData.breadth);
-    data.append('height', formData.height);
-    data.append('type', formData.type); 
-    data.append('image', formData.image);
+    data.append("name", formData.name);
+    data.append("price", formData.price);
+    data.append("stock", formData.stock);
+    data.append("length", formData.length);
+    data.append("breadth", formData.breadth);
+    data.append("height", formData.height);
+    data.append("type", formData.type);
+    data.append("image", formData.image);
 
     try {
-      const res = await axios.fetch("https://memento-world.vercel.app/add_products", {
-        method: "POST",
-        body: data,
-      });
+        const res = await axios.post("http://localhost:3000/api/add_products", data, {
+            headers: { "Content-Type": "multipart/form-data" }
+        });
 
-      if (!res.ok) throw new Error("Upload failed");
+        if (res.status !== 201) throw new Error("Upload failed");
 
-      const result = await res.json();
-      setMessage("✅ Product added successfully!");
-      setFormData({
-        name: '',
-        price: '',
-        stock: '',
-        length: '',
-        breadth: '',
-        height: '',
-        type: '', 
-        image: null,
-      });
+        setMessage("✅ Product added successfully!");
+        setFormData({
+            name: "",
+            price: "",
+            stock: "",
+            length: "",
+            breadth: "",
+            height: "",
+            type: "",
+            image: null,
+        });
     } catch (error) {
-      console.error(error);
-      setMessage("❌ Failed to add product");
+        console.error("Error Details:", error.response ? error.response.data : error.message);
+        setMessage("❌ Failed to add product");
     }
-  };
+};
 
   return (
     <div style={styles.container}>
