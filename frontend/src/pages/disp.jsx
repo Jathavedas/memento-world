@@ -7,7 +7,7 @@ const Disp = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://memento-backend-u1f4.onrender.com/api/disp/products")
+    fetch("https://memento-backend-vh65.onrender.com/api/disp/products")
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
@@ -22,7 +22,7 @@ const Disp = () => {
   const handleDelete = (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       // API call to delete the product
-      fetch(`https://memento-backend-u1f4.onrender.com/api/products_delete/${productId}`, {
+      fetch(`https://memento-backend-vh65.onrender.com/api/products_delete/${productId}`, {
         method: 'DELETE',
       })
       .then((response) => response.json())
@@ -76,7 +76,7 @@ const Disp = () => {
             <div key={product._id} style={{ position: 'relative' }}>
               <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
                 <img
-                  src={`https://memento-backend-u1f4.onrender.com/${product.images[0]}`}
+                 src={product.images[0]}
                   alt={product.name}
                   style={{
                     width: '100%',

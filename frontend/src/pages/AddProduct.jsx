@@ -39,7 +39,7 @@ const AddProduct = () => {
     data.append("image", formData.image);
 
     try {
-        const res = await axios.post("https://memento-backend-u1f4.onrender.com/api/add_products", data, {
+        const res = await axios.post("https://memento-backend-vh65.onrender.com/api/add_products", data, {
             headers: { "Content-Type": "multipart/form-data" }
         });
 
