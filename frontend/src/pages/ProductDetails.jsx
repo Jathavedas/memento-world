@@ -17,7 +17,7 @@ const ProductDetails = () => {
   });
 
   useEffect(() => {
-    fetch(`https://memento-backend-y96t.onrender.com/api/disp/products/${id}`)
+    fetch(`https://memento-backend-u1f4.onrender.com/api/disp/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -44,7 +44,7 @@ const ProductDetails = () => {
     const updatedProduct = { ...formData, size: { length: formData.length, breadth: formData.breadth, height: formData.height } };
 
     try {
-      const res = await fetch(`https://memento-backend-y96t.onrender.com/api/update_products/${id}`, {
+      const res = await fetch(`https://memento-backend-u1f4.onrender.com/api/update_products/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedProduct),
@@ -75,7 +75,7 @@ const ProductDetails = () => {
             {product.images.map((img, index) => (
               <img
                 key={index}
-                src={`https://memento-backend-y96t.onrender.com/${img}`}
+                src={`https://memento-backend-u1f4.onrender.com/${img}`}
                 alt={`${product.name} ${index + 1}`}
                 style={{
                   width: '100%',
