@@ -87,6 +87,14 @@ const Disp = () => {
                     transition: 'transform 0.3s ease',
                   }}
                 />
+                <p style={{
+      marginTop: '8px',
+      fontSize: '14px',
+      color: '#555',
+      textAlign: 'center',
+    }}>
+      {product.type}
+    </p>
               </Link>
               {/* Delete button */}
               <button
