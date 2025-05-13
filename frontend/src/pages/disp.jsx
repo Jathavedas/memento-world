@@ -22,8 +22,7 @@ const Disp = () => {
   const handleDelete = (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       // API call to delete the product
-      fetch(`https://memento-backend-u1f4.onrender.com/api/
-        products_delete/${productId}`, {
+      fetch(`https://memento-backend-u1f4.onrender.com/api/products_delete/${productId}`, {
         method: 'DELETE',
       })
       .then((response) => response.json())
