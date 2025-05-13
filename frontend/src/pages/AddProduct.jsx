@@ -39,7 +39,7 @@ const AddProduct = () => {
     data.append('image', formData.image);
 
     try {
-      const res = await axios.fetch("https://memento-world.vercel.app/api/add_products", {
+      const res = await axios.fetch("https://memento-world.vercel.app/add_products", {
         method: "POST",
         body: data,
       });

@@ -11,7 +11,11 @@ const DB = "mongodb://localhost:27017/memento_wold";
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
-app.use(cors());
+app.use(cors({
+    origin: "https://memetoworldstock.vercel.app", // Allow only this origin
+    methods: ["GET", "POST", "PUT", "DELETE"], // Define allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow headers
+}));
 
 // Serve uploaded images statically
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
