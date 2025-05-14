@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
-  const [isEditable, setIsEditable] = useState(false); // State to toggle editable mode
+  const [isEditable, setIsEditable] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -25,9 +25,9 @@ const ProductDetails = () => {
           name: data.name,
           price: data.price,
           stock: data.stock,
-          length: data.size.length,
-          breadth: data.size.breadth,
-          height: data.size.height,
+          length: data.size?.length || '',
+          breadth: data.size?.breadth || '',
+          height: data.size?.height || '',
           type: data.type,
         });
       })
@@ -41,7 +41,19 @@ const ProductDetails = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedProduct = { ...formData, size: { length: formData.length, breadth: formData.breadth, height: formData.height } };
+
+    const size = {};
+    if (formData.length) size.length = formData.length;
+    if (formData.breadth) size.breadth = formData.breadth;
+    if (formData.height) size.height = formData.height;
+
+    const updatedProduct = {
+      name: formData.name,
+      price: formData.price,
+      stock: formData.stock,
+      type: formData.type,
+      ...(Object.keys(size).length && { size }),
+    };
 
     try {
       const res = await fetch(`https://memento-backend-vh65.onrender.com/api/update_products/${id}`, {
@@ -65,6 +77,10 @@ const ProductDetails = () => {
     return <p style={{ textAlign: 'center' }}>Loading product details...</p>;
   }
 
+  const sizeDisplay = product.size?.length || product.size?.breadth || product.size?.height
+    ? `${product.size.length || 0} x ${product.size.breadth || 0} x ${product.size.height || 0} cm`
+    : 'N/A';
+
   return (
     <div style={{ maxWidth: '1200px', margin: 'auto', padding: '20px' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px' }}>
@@ -75,7 +91,7 @@ const ProductDetails = () => {
             {product.images.map((img, index) => (
               <img
                 key={index}
-                src={product.images[0]}
+                src={img}
                 alt={`${product.name} ${index + 1}`}
                 style={{
                   width: '100%',
@@ -92,19 +108,17 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Product Details */}
+        {/* Product Details Section */}
         <div>
           <h2>{product.name}</h2>
           <p><strong>Price:</strong> ₹{product.price}</p>
           <p><strong>Stock:</strong> {product.stock}</p>
-          <p>
-            <strong>Size:</strong> {product.size.length} x {product.size.breadth} x {product.size.height} cm
-          </p>
+          <p><strong>Size:</strong> {sizeDisplay}</p>
           <p><strong>Type:</strong> {product.type.charAt(0).toUpperCase() + product.type.slice(1)}</p>
-          
-          {/* Edit Button */}
-          <button 
-            onClick={() => setIsEditable(!isEditable)} 
+
+          {/* Edit Toggle Button */}
+          <button
+            onClick={() => setIsEditable(!isEditable)}
             style={styles.editButton}
           >
             {isEditable ? 'Cancel' : 'Edit'}
@@ -117,7 +131,6 @@ const ProductDetails = () => {
               <input
                 type="text"
                 name="name"
-                id="product-name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Product Name"
@@ -128,7 +141,6 @@ const ProductDetails = () => {
               <input
                 type="number"
                 name="price"
-                id="product-price"
                 value={formData.price}
                 onChange={handleChange}
                 placeholder="Price"
@@ -139,7 +151,6 @@ const ProductDetails = () => {
               <input
                 type="number"
                 name="stock"
-                id="product-stock"
                 value={formData.stock}
                 onChange={handleChange}
                 placeholder="Stock"
@@ -150,39 +161,32 @@ const ProductDetails = () => {
               <input
                 type="number"
                 name="length"
-                id="product-length"
                 value={formData.length}
                 onChange={handleChange}
                 placeholder="Length (cm)"
-                
                 style={styles.input}
               />
               <>Breadth</>
               <input
                 type="number"
                 name="breadth"
-                id="product-breadth"
                 value={formData.breadth}
                 onChange={handleChange}
                 placeholder="Breadth (cm)"
-                
                 style={styles.input}
               />
               <>Height</>
               <input
                 type="number"
                 name="height"
-                id="product-height"
                 value={formData.height}
                 onChange={handleChange}
                 placeholder="Height (cm)"
-                
                 style={styles.input}
               />
               <>Type</>
               <select
                 name="type"
-                id="product-type"
                 value={formData.type}
                 onChange={handleChange}
                 required
@@ -193,13 +197,14 @@ const ProductDetails = () => {
                 <option value="large">Large</option>
                 <option value="nil">Nil</option>
               </select>
+
               <button type="submit" style={styles.submitButton}>Update Product</button>
             </form>
           )}
 
           {/* Go Back Button */}
-          <button 
-            onClick={() => navigate('/')} // Navigate to the root page or the products listing page
+          <button
+            onClick={() => navigate('/')}
             style={styles.goBackButton}
           >
             Go Back

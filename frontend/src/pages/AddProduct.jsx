@@ -26,43 +26,45 @@ const AddProduct = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("price", formData.price);
-    data.append("stock", formData.stock);
-    data.append("length", formData.length);
-    data.append("breadth", formData.breadth);
-    data.append("height", formData.height);
-    data.append("type", formData.type);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const data = new FormData();
+  data.append("name", formData.name);
+  data.append("price", formData.price);
+  data.append("stock", formData.stock);
+  data.append("type", formData.type);
 
-    // Append all selected images
-    formData.images.forEach((img) => data.append("images", img));
+  // Append optional fields only if filled
+  if (formData.length) data.append("length", formData.length);
+  if (formData.breadth) data.append("breadth", formData.breadth);
+  if (formData.height) data.append("height", formData.height);
 
-    try {
-      const res = await axios.post("https://memento-backend-vh65.onrender.com/api/add_products", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+  formData.images.forEach((img) => data.append("images", img));
 
-      if (res.status !== 201) throw new Error("Upload failed");
+  try {
+    const res = await axios.post("https://memento-backend-vh65.onrender.com/api/add_products", data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
-      setMessage("✅ Product added successfully!");
-      setFormData({
-        name: '',
-        price: '',
-        stock: '',
-        length: '',
-        breadth: '',
-        height: '',
-        type: '',
-        images: [],
-      });
-    } catch (error) {
-      console.error("Error Details:", error.response ? error.response.data : error.message);
-      setMessage("❌ Failed to add product");
-    }
-  };
+    if (res.status !== 201) throw new Error("Upload failed");
+
+    setMessage("✅ Product added successfully!");
+    setFormData({
+      name: '',
+      price: '',
+      stock: '',
+      length: '',
+      breadth: '',
+      height: '',
+      type: '',
+      images: [],
+    });
+  } catch (error) {
+    console.error("Error Details:", error.response ? error.response.data : error.message);
+    setMessage("❌ Failed to add product");
+  }
+};
+
 
   return (
     <div style={styles.container}>
