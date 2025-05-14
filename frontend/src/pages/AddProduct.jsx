@@ -72,9 +72,9 @@ const AddProduct = () => {
         <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Product Name" required style={styles.input} /><br />
         <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" required style={styles.input} /><br />
         <input type="number" name="stock" value={formData.stock} onChange={handleChange} placeholder="Stock" required style={styles.input} /><br />
-        <input type="number" name="length" value={formData.length} onChange={handleChange} placeholder="Length (cm)" required style={styles.input} /><br />
-        <input type="number" name="breadth" value={formData.breadth} onChange={handleChange} placeholder="Breadth (cm)" required style={styles.input} /><br />
-        <input type="number" name="height" value={formData.height} onChange={handleChange} placeholder="Height (cm)" required style={styles.input} /><br />
+        <input type="number" name="length" value={formData.length} onChange={handleChange} placeholder="Length (cm)"  style={styles.input} /><br />
+        <input type="number" name="breadth" value={formData.breadth} onChange={handleChange} placeholder="Breadth (cm)"  style={styles.input} /><br />
+        <input type="number" name="height" value={formData.height} onChange={handleChange} placeholder="Height (cm)"  style={styles.input} /><br />
 
         <select name="type" value={formData.type} onChange={handleChange} required style={styles.input}>
           <option value="">Select Type</option>

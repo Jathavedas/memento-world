@@ -154,7 +154,7 @@ const ProductDetails = () => {
                 value={formData.length}
                 onChange={handleChange}
                 placeholder="Length (cm)"
-                required
+                
                 style={styles.input}
               />
               <>Breadth</>
@@ -165,7 +165,7 @@ const ProductDetails = () => {
                 value={formData.breadth}
                 onChange={handleChange}
                 placeholder="Breadth (cm)"
-                required
+                
                 style={styles.input}
               />
               <>Height</>
@@ -176,7 +176,7 @@ const ProductDetails = () => {
                 value={formData.height}
                 onChange={handleChange}
                 placeholder="Height (cm)"
-                required
+                
                 style={styles.input}
               />
               <>Type</>
