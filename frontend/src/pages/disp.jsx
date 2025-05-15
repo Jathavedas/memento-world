@@ -93,8 +93,8 @@ const Disp = () => {
       color: '#555',
       textAlign: 'center',
     }}>
-      {product.type}
-    </p>
+    {`${product.name} | ${product.stock} | ${product.type}`}
+</p>
               </Link>
               {/* Delete button */}
               <button
